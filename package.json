@@ -1,0 +1,43 @@
+{
+  "name": "generator-sublimelinter",
+  "version": "0.0.0",
+  "description": "Yeoman generator for SublimeLinter plugins",
+  "files": [
+    "generators"
+  ],
+  "scripts": {
+    "ejslint": "ejslint generators/**/*.ejs",
+    "eslint": "eslint generators/**/*.js",
+    "precommit": "npm run test",
+    "test": "npm run eslint && npm run ejslint"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "sublimelinter",
+    "sublimelinter-plugin",
+    "sublime text"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idleberg/generator-sublimelinter"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@sindresorhus/slugify": "^0.3.0",
+    "git-user-name": "^2.0.0",
+    "mkdirp": "^0.5.1",
+    "pascal-case": "^2.0.1",
+    "semver": "^5.5.1",
+    "spdx-license-list": "^4.1.0",
+    "terminal-link": "^1.1.0",
+    "update-notifier": "^2.5.0",
+    "yeoman-generator": "^3.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "ejs-lint": "^0.3.0",
+    "eslint": "^5.4.0",
+    "husky": "^0.14.3"
+  }
+}
