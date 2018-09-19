@@ -64,7 +64,6 @@ module.exports = class extends Generator {
     this.looseVersion = (this.options.looseVersion ? true : false);
   }
 
-
   inquirer() {
     return this.prompt([
       {
@@ -313,6 +312,11 @@ module.exports = class extends Generator {
           }
         );
       }
+
+      this.fs.copyTpl(
+        this.templatePath('_editorconfig.ejs'),
+        this.destinationPath('.editorconfig'),
+      );
 
       this.fs.copyTpl(
         this.templatePath('linter.py.ejs'),
