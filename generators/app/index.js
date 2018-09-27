@@ -313,7 +313,7 @@ module.exports = class extends Generator {
         );
       }
 
-      this.fs.copyTpl(
+      this.fs.copy(
         this.templatePath('_editorconfig.ejs'),
         this.destinationPath('.editorconfig'),
       );
