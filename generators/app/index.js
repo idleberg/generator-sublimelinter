@@ -314,7 +314,7 @@ module.exports = class extends Generator {
       }
 
       this.fs.copy(
-        this.templatePath('_editorconfig.ejs'),
+        this.templatePath('_editorconfig'),
         this.destinationPath('.editorconfig'),
       );
 
