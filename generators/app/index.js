@@ -9,6 +9,7 @@ const slugify = require('@sindresorhus/slugify');
 const spdxLicenseList = require('spdx-license-list/full');
 const terminalLink = require('terminal-link');
 const updateNotifier = require('update-notifier');
+const { join } = require('path');
 
 // Is there a newer version of this generator?
 updateNotifier({ pkg: pkg }).notify();
@@ -267,7 +268,7 @@ module.exports = class extends Generator {
         name: 'initGit',
         message: 'Initialize Git repository?',
         type: 'confirm',
-        default: fs.existsSync('.git/') ? false : true
+        default: this.fs.exists(join(process.cwd(), '.git', 'config')) ? false : true
       },
       {
         name: 'openInEditor',
