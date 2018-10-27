@@ -268,7 +268,17 @@ module.exports = class extends Generator {
         message: 'Initialize Git repository?',
         type: 'confirm',
         default: fs.existsSync('.git/') ? false : true
-      }
+      },
+      {
+        name: 'openInEditor',
+        message: 'Open in default editor?',
+        type: 'confirm',
+        default: 'true',
+        store: true,
+        when: () => {
+          return (process.env.EDITOR) ? true : false;
+        }
+      },
     ]).then(props => {
       props.slug = slugify(props.name);
       props.repositoryName = `SublimeLinter-contrib-${props.slug}`;
@@ -337,6 +347,11 @@ module.exports = class extends Generator {
       // Initialize git repository
       if (props.initGit) {
         this.spawnCommandSync('git', ['init']);
+      }
+
+      // Open in Editor
+      if (props.openInEditor === true) {
+        this.spawnCommand(process.env.EDITOR, [ '.' ]);
       }
     });
   }
