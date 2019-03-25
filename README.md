@@ -21,7 +21,7 @@ A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Subl
 Use your preferred [Node](https://nodejs.org/) package manager to install the CLI tool
 
 ```sh
-yarn global add generator-sublimelinter || npm i generator-sublimelinter -g
+npm i generator-sublimelinter -g
 ```
 
 ## Usage
