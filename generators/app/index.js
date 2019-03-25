@@ -1,7 +1,6 @@
 const Generator = require('yeoman-generator');
 const pkg = require('../../package.json');
 
-const gitUserName = require('git-user-name');
 const mkdirp = require('mkdirp');
 const pascalCase = require('pascal-case');
 const semver = require('semver');
@@ -188,7 +187,7 @@ module.exports = class extends Generator {
       {
         name: 'author',
         message: `What's your GitHub username?`,
-        default: gitUserName(),
+        default: async () => await this.user.github.username(),
         store: true,
         validate: x => x.length > 0 ? true : 'You have to provide a username'
       },
