@@ -1,13 +1,16 @@
 # Package Managers
 bower_components/
 node_modules/
-
-# Error Logs
 *npm-debug.log*
+package-lock.json
 yarn-error.log
+yarn.lock
 
-# Yeoman
+# Development
+.eslintcache
 .yo-rc.json
 
 # Project specific
+*.nsi
 todo.md
+license.txt

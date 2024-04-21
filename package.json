@@ -1,46 +1,64 @@
 {
-  "name": "generator-sublimelinter",
-  "version": "0.2.2",
-  "description": "Yeoman generator for SublimeLinter plugins",
-  "files": [
-    "generators"
-  ],
-  "scripts": {
-    "ejslint": "ejslint generators/**/*.ejs",
-    "eslint": "eslint generators/**/*.js",
-    "test": "npm run eslint && npm run ejslint"
-  },
-  "keywords": [
-    "yeoman-generator",
-    "sublimelinter",
-    "sublimelinter-plugin",
-    "sublime text"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/idleberg/generator-sublimelinter"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@sindresorhus/slugify": "^0.9.1",
-    "mkdirp": "^0.5.1",
-    "pascal-case": "^2.0.1",
-    "semver": "^6.3.0",
-    "spdx-license-list": "^6.0.0",
-    "terminal-link": "^1.3.0",
-    "update-notifier": "^3.0.1",
-    "yeoman-generator": "^4.0.1"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.2",
-    "ejs-lint": "^0.3.0",
-    "eslint": "^6.1.0",
-    "husky": "^3.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test"
-    }
-  }
+	"name": "generator-sublimelinter",
+	"version": "0.2.2",
+	"description": "Yeoman generator for SublimeLinter plugins",
+	"author": "Jan T. Sott",
+	"license": "MIT",
+	"keywords": [
+		"yeoman-generator",
+		"nsis",
+		"nullsoft",
+		"installer",
+		"setup"
+	],
+	"type": "module",
+	"exports": "./generators/app",
+	"files": [
+		"generators",
+		"LICENSE",
+		"README.md"
+	],
+	"scripts": {
+		"lint:ejs": "ejslint generators/**/*.ejs",
+		"lint:js": "eslint generators/**/*.js --ignore-path .gitignore",
+		"lint:json": "eslint ./*.json --ignore-path .gitignore",
+		"lint": "npm-run-all --parallel lint:*",
+		"prepack": "rimraf installer.nsi license.txt",
+		"prepare": "husky",
+		"publish": "np --no-yarn",
+		"test": "uvu --ignore test/__helper.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/idleberg/generator-nsis"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"devDependencies": {
+		"@lukeed/uuid": "^2.0.1",
+		"ejs-lint": "^2.0.0",
+		"eslint": "^8.57.0",
+		"eslint-plugin-json": "^3.1.0",
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.2",
+		"mem-fs": "^4.1.0",
+		"np": "^10.0.2",
+		"npm-run-all2": "^6.1.2",
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5",
+		"tsm": "^2.3.0",
+		"uvu": "^0.5.6",
+		"yeoman-assert": "^3.1.1",
+		"yeoman-environment": "^4.4.0",
+		"yeoman-test": "^8.2.0"
+	},
+	"lint-staged": {
+		"*.ejs": "ejslint",
+		"*.(js|json)": [
+			"eslint --cache --fix",
+			"prettier --write"
+		]
+	},
+	"packageManager": "pnpm@8.15.2+sha256.90bb5d6382cb2cb8b8d4959a076b3953d84d1d94121717097bcd41c71344fa14"
 }
