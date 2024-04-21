@@ -4,12 +4,17 @@
 	"description": "Yeoman generator for SublimeLinter plugins",
 	"author": "Jan T. Sott",
 	"license": "MIT",
-	"keywords": ["yeoman-generator", "nsis", "nullsoft", "installer", "setup"],
+	"keywords": [
+		"yeoman-generator",
+		"sublimelinter",
+		"sublimelinter-plugin",
+		"sublime text"
+	],
 	"type": "module",
 	"exports": "./generators/app",
 	"files": ["generators", "LICENSE", "README.md"],
 	"scripts": {
-		"fix": "npx biome check --apply",
+		"fix": "npx biome check --apply --no-errors-on-unmatched ",
 		"lint": "npx biome check",
 		"prepack": "rimraf linter.py",
 		"prepare": "husky",
@@ -18,7 +23,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/idleberg/generator-nsis"
+		"url": "https://github.com/idleberg/generator-sublimelinter"
 	},
 	"engines": {
 		"node": ">=18"
@@ -34,10 +39,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.6.4",
 		"@lukeed/uuid": "^2.0.1",
-		"ejs-lint": "^2.0.0",
 		"eslint-plugin-json": "^3.1.0",
 		"husky": "^9.0.11",
-		"lint-staged": "^15.2.2",
 		"mem-fs": "^4.1.0",
 		"np": "^10.0.2",
 		"npm-run-all2": "^6.1.2",
@@ -47,10 +50,6 @@
 		"yeoman-assert": "^3.1.1",
 		"yeoman-environment": "^4.4.0",
 		"yeoman-test": "^8.2.0"
-	},
-	"lint-staged": {
-		"*.ejs": "ejslint",
-		"*.(js|json)": ["eslint --cache --fix", "prettier --write"]
 	},
 	"packageManager": "pnpm@9.0.4+sha512.c374b52de3de88c58fd8333df664a737279cdb0e1344ba4054d3b1fffa9a1a3670854f755dca4f16adea3f14be9896a7fcaf167409fe0c1ad60475271dafe81a"
 }
