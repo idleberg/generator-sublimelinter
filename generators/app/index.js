@@ -1,7 +1,7 @@
-import { resolve } from 'node:path';
 import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 import { mkdir } from 'node:fs/promises';
 import { pascalCase } from 'pascal-case';
+import { resolve } from 'node:path';
 import Generator from 'yeoman-generator';
 import semver from 'semver';
 import slugify from '@sindresorhus/slugify';
