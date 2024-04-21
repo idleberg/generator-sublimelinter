@@ -14,8 +14,8 @@
 	"exports": "./generators/app",
 	"files": ["generators", "LICENSE", "README.md"],
 	"scripts": {
-		"fix": "npx biome check --apply --no-errors-on-unmatched ",
-		"lint": "npx biome check",
+		"fix": "npx biome check --apply ./generators",
+		"lint": "npx biome check ./generators",
 		"prepack": "rimraf linter.py",
 		"prepare": "husky",
 		"publish": "np --no-yarn",
