@@ -158,6 +158,15 @@ export default class extends Generator {
 						value: 'circleCI',
 						checked: false,
 					},
+					{
+						name: terminalLink('GitHub Workflow', 'https://docs.github.com/en/actions/using-workflows', {
+							fallback() {
+								return 'GitHub Workflow';
+							},
+						}),
+						value: 'githubWorkflow',
+						checked: false,
+					},
 				],
 			},
 			{
@@ -215,6 +224,17 @@ export default class extends Generator {
 				});
 
 				this.fs.copyTpl(this.templatePath('config-circleci.ejs'), this.destinationPath('.circleci/config.yml'), {
+					flakeArgs: props.flakeArgs.trim(),
+					pepArgs: props.pepArgs.trim(),
+				});
+			}
+
+			if (props.tests.includes('githubWorkflow')) {
+				await mkdir('.github/workflows', {
+					recursive: true,
+				});
+
+				this.fs.copyTpl(this.templatePath('config-github.ejs'), this.destinationPath('..github/workflows/config.yml'), {
 					flakeArgs: props.flakeArgs.trim(),
 					pepArgs: props.pepArgs.trim(),
 				});
