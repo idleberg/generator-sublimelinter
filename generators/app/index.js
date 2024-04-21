@@ -1,12 +1,12 @@
-import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 import { mkdir } from 'node:fs/promises';
-import { pascalCase } from 'pascal-case';
 import { resolve } from 'node:path';
-import Generator from 'yeoman-generator';
-import semver from 'semver';
 import slugify from '@sindresorhus/slugify';
+import { pascalCase } from 'pascal-case';
+import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
+import Generator from 'yeoman-generator';
+import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
 	constructor(args, opts) {
@@ -14,7 +14,7 @@ export default class extends Generator {
 
 		this.option('loose-version', { desc: `Doesn't enforce semantic versioning`, default: false });
 
-		this.looseVersion = !!this.options.looseVersion;
+		this.looseVersion = Boolean(this.options.looseVersion);
 
 		console.log(/* let it breathe */);
 	}
