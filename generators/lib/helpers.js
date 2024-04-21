@@ -3,12 +3,12 @@ import terminalLink from 'terminal-link';
 
 const spdxCodes = Object.getOwnPropertyNames(spdxLicenseList).sort();
 
-export const licenseChoices = spdxCodes.map(obj => {
+export const licenseChoices = spdxCodes.map((obj) => {
 	const licenses = {};
-	licenses['name'] = terminalLink(obj, `https://spdx.org/licenses/${obj}.html`, {
+	licenses.name = terminalLink(obj, `https://spdx.org/licenses/${obj}.html`, {
 		fallback: true,
 	});
-	licenses['value'] = obj;
+	licenses.value = obj;
 
 	return licenses;
 });
@@ -16,11 +16,14 @@ export const licenseChoices = spdxCodes.map(obj => {
 export function getDefaultSelector(linterInterface) {
 	if (linterInterface === 'ComposerLinter') {
 		return 'source.php';
-	} else if (linterInterface === 'NodeLinter') {
+	}
+	if (linterInterface === 'NodeLinter') {
 		return 'source.js';
-	} else if (linterInterface === 'PythonLinter') {
+	}
+	if (linterInterface === 'PythonLinter') {
 		return 'source.py';
-	} else if (linterInterface === 'RubyLinter') {
+	}
+	if (linterInterface === 'RubyLinter') {
 		return 'source.rb';
 	}
 

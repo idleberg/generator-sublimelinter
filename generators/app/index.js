@@ -1,13 +1,12 @@
-import { join } from 'node:path';
 import { mkdir } from 'node:fs/promises';
-import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
-
-import Generator from 'yeoman-generator';
-import pascalCase from 'pascal-case';
-import semver from 'semver';
+import { join } from 'node:path';
 import slugify from '@sindresorhus/slugify';
+import { pascalCase } from 'pascal-case';
+import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
+import Generator from 'yeoman-generator';
+import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
 	constructor(args, opts) {
@@ -15,7 +14,7 @@ export default class extends Generator {
 
 		this.option('loose-version', { desc: `Doesn't enforce semantic versioning`, default: false });
 
-		this.looseVersion = this.options.looseVersion ? true : false;
+		this.looseVersion = !!this.options.looseVersion;
 	}
 
 	inquirer() {
@@ -25,15 +24,14 @@ export default class extends Generator {
 				message: `What's name of the linter executable?`,
 				default: slugify(this.appname),
 				store: true,
-				validate: str =>
-					validateName(str) === false ? `Specify the linter's name without SublimeLinter prefixes` : true,
+				validate: (str) => (validateName(str) === false ? `Specify the linter's name without SublimeLinter prefixes` : true),
 			},
 			{
 				name: 'version',
 				message: `What's the plugin's initial version?`,
 				default: '0.0.0',
 				store: true,
-				validate: version =>
+				validate: (version) =>
 					this.looseVersion === true || semver.valid(version) !== null
 						? true
 						: `Not a valid ${terminalLink('semantic version', 'https://semver.org', {
@@ -81,30 +79,22 @@ export default class extends Generator {
 			},
 			{
 				name: 'selector',
-				message: `Specify the ${terminalLink(
-					'selector',
-					'http://www.sublimelinter.com/en/stable/linter_settings.html#selector',
-					{
-						fallback() {
-							return 'selector';
-						},
-					}
-				)}`,
-				default: answers => getDefaultSelector(answers.interface),
+				message: `Specify the ${terminalLink('selector', 'http://www.sublimelinter.com/en/stable/linter_settings.html#selector', {
+					fallback() {
+						return 'selector';
+					},
+				})}`,
+				default: (answers) => getDefaultSelector(answers.interface),
 				store: true,
-				validate: x => (x.length > 0 ? true : 'You have to provide a valid selector'),
+				validate: (x) => (x.length > 0 ? true : 'You have to provide a valid selector'),
 			},
 			{
 				name: 'errorStream',
-				message: `Specify the default ${terminalLink(
-					'error stream',
-					'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream',
-					{
-						fallback() {
-							return 'error stream';
-						},
-					}
-				)}`,
+				message: `Specify the default ${terminalLink('error stream', 'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream', {
+					fallback() {
+						return 'error stream';
+					},
+				})}`,
 				type: 'list',
 				default: 'STREAM_BOTH',
 				choices: [
@@ -125,15 +115,11 @@ export default class extends Generator {
 			},
 			{
 				name: 'multiline',
-				message: `RegEx pattern is ${terminalLink(
-					'multiline',
-					'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline',
-					{
-						fallback() {
-							return 'multiline';
-						},
-					}
-				)}`,
+				message: `RegEx pattern is ${terminalLink('multiline', 'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline', {
+					fallback() {
+						return 'multiline';
+					},
+				})}`,
 				type: 'confirm',
 				default: false,
 				store: true,
@@ -141,9 +127,9 @@ export default class extends Generator {
 			{
 				name: 'author',
 				message: `What's your GitHub username?`,
-				default: async () => await this.user.github.username(),
+				default: async () => await this.github.username(),
 				store: true,
-				validate: x => (x.length > 0 ? true : 'You have to provide a username'),
+				validate: (x) => (x.length > 0 ? true : 'You have to provide a username'),
 			},
 			{
 				name: 'spdxLicense',
@@ -188,7 +174,7 @@ export default class extends Generator {
 				})} arguments`,
 				default: '-ignore=D211',
 				store: true,
-				when: answers => (answers.tests.length > 0 ? true : false),
+				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'pepArgs',
@@ -199,25 +185,15 @@ export default class extends Generator {
 				})} arguments`,
 				default: '--ignore=D211',
 				store: true,
-				when: answers => (answers.tests.length > 0 ? true : false),
+				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'initGit',
 				message: 'Initialize Git repository?',
 				type: 'confirm',
-				default: this.fs.exists(join(process.cwd(), '.git', 'config')) ? false : true,
+				default: !this.fs.exists(join(process.cwd(), '.git', 'config')),
 			},
-			{
-				name: 'openInEditor',
-				message: 'Open in default editor?',
-				type: 'confirm',
-				default: 'true',
-				store: true,
-				when: () => {
-					return process.env.EDITOR ? true : false;
-				},
-			},
-		]).then(async props => {
+		]).then(async (props) => {
 			props.slug = slugify(props.name);
 			props.repositoryName = `SublimeLinter-contrib-${props.slug}`;
 			props.className = pascalCase(props.name);
