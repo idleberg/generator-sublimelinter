@@ -1,13 +1,13 @@
 # generator-sublimelinter
 
-[![npm](https://flat.badgen.net/npm/license/generator-sublimelinter)](https://www.npmjs.org/package/generator-sublimelinter)
-[![npm](https://flat.badgen.net/npm/v/generator-sublimelinter)](https://www.npmjs.org/package/generator-sublimelinter)
-[![CircleCI](https://flat.badgen.net/circleci/github/idleberg/generator-sublimelinter)](https://circleci.com/gh/idleberg/generator-sublimelinter)
-[![David](https://flat.badgen.net/david/dep/idleberg/generator-sublimelinter)](https://david-dm.org/idleberg/generator-sublimelinter)
+> A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for SublimeLinter plugins.
+
+[![License](https://img.shields.io/github/license/idleberg/generator-sublimelinter?color=blue&style=for-the-badge)](https://github.com/idleberg/generator-sublimelinter/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/generator-sublimelinter?style=for-the-badge)](https://www.npmjs.org/package/generator-sublimelinter)
+[![Build](https://img.shields.io/github/actions/workflow/status/idleberg/generator-sublimelinter/default.yml?style=for-the-badge)](https://github.com/idleberg/generator-sublimelinter/actions)
 
 ## Description
 
-A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for SublimeLinter plugins.
 
 **Features**
 
@@ -16,20 +16,28 @@ A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Subl
 - adds [Travis CI](https://travis-ci.org/) configuration
 - adds [EditorConfig](https://editorconfig.org/) configuration
 
-## Installation
+## Prerequisites
 
-Use your preferred [Node](https://nodejs.org/) package manager to install the CLI tool
+You need [Node.js](https://nodejs.org/en/) installed and available in your `PATH` [environment variable](http://superuser.com/a/284351/195953). Use your preferred Node package manager to install the Yeoman CLI tool.
 
 ```sh
-npm i generator-sublimelinter -g
+$ npm install -g yo
+```
+
+## Installation
+
+ Use your preferred package manager to install this generator
+
+```sh
+$ npm i generator-sublimelinter -g
 ```
 
 ## Usage
 
-Run the generator and follow its instructions. Use `--help`to list available flags.
+Run the generator and follow its instructions. Use `--help` for available flags.
 
 ```sh
-yo sublimelinter
+$ yo sublimelinter
 ```
 
 *“That's all Folks!”*
