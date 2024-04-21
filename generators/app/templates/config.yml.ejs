@@ -24,8 +24,8 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            flake8 ./linter.py<%- flakeArgs %>
-            pep257 ./linter.py<%- pepArgs %>
+            flake8 ./linter.py <%- flakeArgs %>
+            pep257 ./linter.py <%- pepArgs %>
       - store_artifacts:
           path: test-reports
           destination: test-reports

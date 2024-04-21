@@ -207,8 +207,8 @@ export default class extends Generator {
 				});
 
 				this.fs.copyTpl(this.templatePath('config.yml.ejs'), this.destinationPath('.circleci/config.yml'), {
-					flakeArgs: ` ${props.flakeArgs.trim()}`,
-					pepArgs: ` ${props.pepArgs.trim()}`,
+					flakeArgs: props.flakeArgs.trim(),
+					pepArgs: props.pepArgs.trim(),
 				});
 			}
 
