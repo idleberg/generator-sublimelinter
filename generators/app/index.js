@@ -154,15 +154,6 @@ export default class extends Generator {
 						value: 'circleCI',
 						checked: false,
 					},
-					{
-						name: terminalLink('Travis CI', 'https://travis-ci.org/', {
-							fallback() {
-								return 'Travis CI';
-							},
-						}),
-						value: 'travisCI',
-						checked: false,
-					},
 				],
 			},
 			{
@@ -216,13 +207,6 @@ export default class extends Generator {
 				});
 
 				this.fs.copyTpl(this.templatePath('config.yml.ejs'), this.destinationPath('.circleci/config.yml'), {
-					flakeArgs: ` ${props.flakeArgs.trim()}`,
-					pepArgs: ` ${props.pepArgs.trim()}`,
-				});
-			}
-
-			if (props.tests.includes('travisCI')) {
-				this.fs.copyTpl(this.templatePath('_travis.yml.ejs'), this.destinationPath('.travis.yml'), {
 					flakeArgs: ` ${props.flakeArgs.trim()}`,
 					pepArgs: ` ${props.pepArgs.trim()}`,
 				});
