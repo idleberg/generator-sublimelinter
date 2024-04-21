@@ -12,11 +12,7 @@
 	],
 	"type": "module",
 	"exports": "./generators/app",
-	"files": [
-		"generators",
-		"LICENSE",
-		"README.md"
-	],
+	"files": ["generators", "LICENSE", "README.md"],
 	"scripts": {
 		"fix": "npx biome check --apply ./generators",
 		"lint": "npx biome check ./generators",
