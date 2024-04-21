@@ -16,7 +16,7 @@
 	"scripts": {
 		"fix": "npx biome check --apply ./generators",
 		"lint": "npx biome check ./generators",
-		"prepack": "rimraf linter.py",
+		"prepack": "rimraf .circleci linter.py",
 		"prepare": "husky",
 		"publish": "np --no-yarn",
 		"test": "uvu --ignore test/__helper.js"
