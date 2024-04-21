@@ -1,12 +1,12 @@
+import { resolve } from 'node:path';
+import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 import { mkdir } from 'node:fs/promises';
-import { join } from 'node:path';
-import slugify from '@sindresorhus/slugify';
 import { pascalCase } from 'pascal-case';
+import Generator from 'yeoman-generator';
 import semver from 'semver';
+import slugify from '@sindresorhus/slugify';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
-import Generator from 'yeoman-generator';
-import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
 	constructor(args, opts) {
@@ -15,9 +15,11 @@ export default class extends Generator {
 		this.option('loose-version', { desc: `Doesn't enforce semantic versioning`, default: false });
 
 		this.looseVersion = !!this.options.looseVersion;
+
+		console.log(/* let it breathe */);
 	}
 
-	inquirer() {
+	async inquirer() {
 		return this.prompt([
 			{
 				name: 'name',
@@ -182,7 +184,7 @@ export default class extends Generator {
 				name: 'initGit',
 				message: 'Initialize Git repository?',
 				type: 'confirm',
-				default: !this.fs.exists(join(process.cwd(), '.git', 'config')),
+				default: !this.fs.exists(resolve(process.cwd(), '.git', 'config')),
 			},
 		]).then(async (props) => {
 			props.slug = slugify(props.name);
