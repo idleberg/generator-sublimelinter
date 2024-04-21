@@ -214,7 +214,7 @@ export default class extends Generator {
 					recursive: true,
 				});
 
-				this.fs.copyTpl(this.templatePath('config.yml.ejs'), this.destinationPath('.circleci/config.yml'), {
+				this.fs.copyTpl(this.templatePath('config-circleci.ejs'), this.destinationPath('.circleci/config.yml'), {
 					flakeArgs: props.flakeArgs.trim(),
 					pepArgs: props.pepArgs.trim(),
 				});
