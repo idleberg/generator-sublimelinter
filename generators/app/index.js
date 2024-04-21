@@ -13,8 +13,10 @@ export default class extends Generator {
 		super(args, opts);
 
 		this.option('loose-version', { desc: `Doesn't enforce semantic versioning`, default: false });
+		this.option('debug', { desc: 'Prints debug messages', default: false });
 
 		this.looseVersion = Boolean(this.options.looseVersion);
+		this.debug = Boolean(this.options.debug);
 
 		console.log(/* let it breathe */);
 	}
@@ -187,6 +189,10 @@ export default class extends Generator {
 				default: !this.fs.exists(resolve(process.cwd(), '.git', 'config')),
 			},
 		]).then(async (props) => {
+			if (this.options.debug) {
+				console.log(props);
+			}
+
 			props.slug = slugify(props.name);
 			props.repositoryName = `SublimeLinter-contrib-${props.slug}`;
 			props.className = pascalCase(props.name);
