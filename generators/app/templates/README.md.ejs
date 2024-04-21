@@ -1,8 +1,7 @@
 # <%= props.repositoryName %>
 
 [![<%= props.licenseName %>](https://flat.badgen.net/badge/license/<%= props.spdxLicense %>/blue)](https://opensource.org/licenses/<%= props.spdxLicense %>)<% if (props.tests.includes('circleCI')) { %>
-[![CircleCI](https://flat.badgen.net/circleci/github/<%= props.author %>/<%= props.repositoryName %>)](https://circleci.com/gh/<%= props.author %>/<%= props.repositoryName %>)<% } %><% if (props.tests.includes('travisCI')) { %>
-[![Travis](https://flat.badgen.net/travis/<%= props.author %>/<%= props.repositoryName %>)](https://travis-ci.org/<%= props.author %>/<%= props.repositoryName %>)<% } %>
+[![CircleCI](https://flat.badgen.net/circleci/github/<%= props.author %>/<%= props.repositoryName %>)](https://circleci.com/gh/<%= props.author %>/<%= props.repositoryName %>)<% } %>
 
 This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to `<%= props.slug %>`
 

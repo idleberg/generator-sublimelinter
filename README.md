@@ -13,7 +13,6 @@
 
 - adds any [SPDX](https://spdx.org/licenses/) license
 - adds [CircleCI](https://circleci.com/) configuration
-- adds [Travis CI](https://travis-ci.org/) configuration
 - adds [EditorConfig](https://editorconfig.org/) configuration
 
 ## Prerequisites
@@ -29,7 +28,7 @@ $ npm install -g yo
  Use your preferred package manager to install this generator
 
 ```sh
-$ npm i generator-sublimelinter -g
+$ npm i generator-sublime -g
 ```
 
 ## Usage
@@ -37,7 +36,7 @@ $ npm i generator-sublimelinter -g
 Run the generator and follow its instructions. Use `--help` for available flags.
 
 ```sh
-$ yo sublimelinter
+$ yo sublime
 ```
 
 *“That's all Folks!”*
