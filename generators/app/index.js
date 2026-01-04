@@ -12,11 +12,11 @@ export default class extends Generator {
 	constructor(args, opts) {
 		super(args, opts);
 
-		this.option('loose-version', { desc: `Doesn't enforce semantic versioning`, default: false });
-		this.option('debug', { desc: 'Prints debug messages', default: false });
+		this.option('loose-version', { description: `Doesn't enforce semantic versioning`, default: false });
+		this.option('debug', { description: 'Prints debug messages', default: false });
 
-		this.looseVersion = Boolean(this.options.looseVersion);
-		this.debug = Boolean(this.options.debug);
+		this.looseVersion = this.options.looseVersion;
+		this.debug = this.options.debug;
 
 		console.log(/* let it breathe */);
 	}
@@ -265,12 +265,12 @@ export default class extends Generator {
 
 			// Initialize git repository
 			if (props.initGit) {
-				this.spawnCommandSync('git', ['init']);
+				this.spawnSync('git', ['init']);
 			}
 
 			// Open in Editor
-			if (props.openInEditor === true) {
-				this.spawnCommand(process.env.EDITOR, ['.']);
+			if (props.openInEditor === true && typeof process.env.EDITOR === 'string') {
+				this.spawn(String(process.env.EDITOR), ['.']);
 			}
 		});
 	}

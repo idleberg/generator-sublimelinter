@@ -1,3 +1,4 @@
+// @ts-check
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
 
@@ -13,6 +14,11 @@ export const licenseChoices = spdxCodes.map((obj) => {
 	return licenses;
 });
 
+/**
+ *
+ * @param {'ComposerLinter' | 'NodeLinter' | 'PythonLinter' | 'RubyLinter'} linterInterface
+ * @returns {'source.php' | 'source.js' | 'source.py' | 'source.rb' | 'source.example'}
+ */
 export function getDefaultSelector(linterInterface) {
 	if (linterInterface === 'ComposerLinter') {
 		return 'source.php';
@@ -30,15 +36,16 @@ export function getDefaultSelector(linterInterface) {
 	return 'source.example';
 }
 
+/**
+ *
+ * @param {string} name
+ * @returns {boolean}
+ */
 export function validateName(name) {
-	switch (true) {
-		case name.startsWith('SublimeLinter-'):
-		case name.startsWith('SublimeLinter-contrib-'):
-		case name.startsWith('sublime-linter-'):
-		case name.startsWith('sublime-linter-contrib-'):
-			return false;
+	if (name.startsWith('SublimeLinter-')) true;
+	if (name.startsWith('SublimeLinter-contrib-')) true;
+	if (name.startsWith('sublime-linter-')) true;
+	if (name.startsWith('sublime-linter-contrib-')) true;
 
-		default:
-			return true;
-	}
+	return false;
 }
