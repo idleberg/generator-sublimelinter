@@ -28,7 +28,8 @@ export default class extends Generator {
 				message: `What's name of the linter executable?`,
 				default: slugify(this.appname),
 				store: true,
-				validate: (str) => (validateName(str) === false ? `Specify the linter's name without SublimeLinter prefixes` : true),
+				validate: (str) =>
+					validateName(str) === false ? `Specify the linter's name without SublimeLinter prefixes` : true,
 			},
 			{
 				name: 'version',
@@ -83,22 +84,30 @@ export default class extends Generator {
 			},
 			{
 				name: 'selector',
-				message: `Specify the ${terminalLink('selector', 'http://www.sublimelinter.com/en/stable/linter_settings.html#selector', {
-					fallback() {
-						return 'selector';
+				message: `Specify the ${terminalLink(
+					'selector',
+					'http://www.sublimelinter.com/en/stable/linter_settings.html#selector',
+					{
+						fallback() {
+							return 'selector';
+						},
 					},
-				})}`,
+				)}`,
 				default: (answers) => getDefaultSelector(answers.interface),
 				store: true,
 				validate: (x) => (x.length > 0 ? true : 'You have to provide a valid selector'),
 			},
 			{
 				name: 'errorStream',
-				message: `Specify the default ${terminalLink('error stream', 'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream', {
-					fallback() {
-						return 'error stream';
+				message: `Specify the default ${terminalLink(
+					'error stream',
+					'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream',
+					{
+						fallback() {
+							return 'error stream';
+						},
 					},
-				})}`,
+				)}`,
 				type: 'list',
 				default: 'STREAM_BOTH',
 				choices: [
@@ -119,11 +128,15 @@ export default class extends Generator {
 			},
 			{
 				name: 'multiline',
-				message: `RegEx pattern is ${terminalLink('multiline', 'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline', {
-					fallback() {
-						return 'multiline';
+				message: `RegEx pattern is ${terminalLink(
+					'multiline',
+					'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline',
+					{
+						fallback() {
+							return 'multiline';
+						},
 					},
-				})}`,
+				)}`,
 				type: 'confirm',
 				default: false,
 				store: true,
