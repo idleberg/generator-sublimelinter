@@ -1,65 +1,79 @@
-name: 'Run tests on NodeJS'
-
+name: "Run tests on NodeJS"
 
 on:
   push:
     paths:
-    - '.github/**'
-    - 'generators/**'
-    - 'test/**'
-    - 'package.json'
-    - 'pnpm-lock.yaml'
+      - ".github/**"
+      - "generators/**"
+      - "test/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
   pull_request:
-      paths:
-      - '.github/**'
-      - 'generators/**'
-      - 'test/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
+    paths:
+      - ".github/**"
+      - "generators/**"
+      - "test/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
   workflow_dispatch:
 
 jobs:
   default:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
-        node-version: ['lts/*', '*']
+        node-version: ["lts/*", "*"]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
-        fetch-depth: 10
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install NSIS on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install nsis
 
-    - name: Enable Corepack
-      run: corepack enable
+      - name: Install NSIS on Windows
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          iwr -useb get.scoop.sh -outfile 'install.ps1'
+          .\install.ps1 -RunAsAdmin
+          scoop bucket add nsis https://github.com/NSIS-Dev/scoop-nsis
+          scoop install nsis/nsis
+          "$HOME\scoop\apps\nsis\current" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-    - name: Get pnpm store directory
-      id: pnpm-cache
-      run: |
-        echo "::set-output name=pnpm_store_path::$(pnpm store path)"
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-    - uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
-      name: Setup pnpm cache
-      with:
-        path: ${{ steps.pnpm-cache.outputs.pnpm_store_path }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-    - name: Install dependencies
-      run: |
-        pnpm install --frozen-lockfile --strict-peer-dependencies
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-    - name: Lint Source
-      run: pnpm run --if-present lint
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
-    - name: Build Source
-      run: pnpm run --if-present build
+      - name: Lint Source
+        # Biome still treats lineEndings differently per OS
+        if: matrix.os != 'windows-latest'
+        run: pnpm exec biome ci
 
-    - name: Run Tests
-      run: pnpm run --if-present test
+      - name: Build Source
+        run: pnpm run --if-present build
+
+      - name: Run Tests
+        run: pnpm run --if-present test
