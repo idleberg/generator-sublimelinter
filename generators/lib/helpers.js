@@ -42,10 +42,10 @@ export function getDefaultSelector(linterInterface) {
  * @returns {boolean}
  */
 export function validateName(name) {
-	if (name.startsWith('SublimeLinter-')) true;
-	if (name.startsWith('SublimeLinter-contrib-')) true;
-	if (name.startsWith('sublime-linter-')) true;
-	if (name.startsWith('sublime-linter-contrib-')) true;
+	if (name.startsWith('SublimeLinter-')) false;
+	if (name.startsWith('SublimeLinter-contrib-')) false;
+	if (name.startsWith('sublime-linter-')) false;
+	if (name.startsWith('sublime-linter-contrib-')) false;
 
-	return false;
+	return true;
 }
