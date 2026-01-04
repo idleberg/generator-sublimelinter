@@ -18,10 +18,11 @@
 		"README.md"
 	],
 	"scripts": {
-		"fix": "npx biome check --apply ./generators",
-		"lint": "npx biome check ./generators",
-		"prepack": "rimraf .circleci linter.py",
-		"prepare": "husky",
+		"lint:e18e": "#e18e-cli analyze",
+		"lint:ejs": "ejslint generators/**/*.ejs",
+		"lint:code": "biome check",
+		"lint": "concurrently --prefix '{name}' -c 'green,blue' 'npm:lint:*'",
+		"prepare": "lefthook install",
 		"publish": "np --no-yarn",
 		"test": "uvu --ignore test/__helper.js"
 	},
@@ -41,10 +42,13 @@
 		"yeoman-generator": "^7.1.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.6.4",
+		"@commitlint/cli": "^20.3.0",
+		"@commitlint/config-conventional": "^20.3.0",
+		"@idleberg/configs": "^0.4.1",
 		"@lukeed/uuid": "^2.0.1",
+		"concurrently": "^9.2.1",
+		"ejs-lint": "^2.0.1",
 		"eslint-plugin-json": "^3.1.0",
-		"husky": "^9.0.11",
 		"mem-fs": "^4.1.0",
 		"np": "^10.0.2",
 		"rimraf": "^5.0.5",
@@ -54,5 +58,5 @@
 		"yeoman-environment": "^4.4.0",
 		"yeoman-test": "^8.2.0"
 	},
-	"packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
+	"packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
 }
