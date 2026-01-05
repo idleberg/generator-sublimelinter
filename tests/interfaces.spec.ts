@@ -1,4 +1,4 @@
-import { suite } from 'uvu';
+import { beforeAll, describe, test } from 'vitest';
 import assert from 'yeoman-assert';
 import type { PromptAnswers } from 'yeoman-generator';
 import { helper } from './__helper.ts';
@@ -12,42 +12,40 @@ const interfaces = [
 ];
 
 interfaces.forEach((interfaceType) => {
-	const InterfaceTest = suite(`with ${interfaceType.name} interface`);
+	describe(`with ${interfaceType.name} interface`, () => {
+		beforeAll(async () => {
+			await helper({
+				name: 'test-linter',
+				version: '0.1.0',
+				interface: interfaceType.value,
+				selector: 'source.test',
+				errorStream: 'STREAM_BOTH',
+				multiline: false,
+				author: 'testuser',
+				spdxLicense: 'MIT',
+				tests: [],
+				initGit: false,
+			} as PromptAnswers);
+		});
 
-	InterfaceTest.before(async () => {
-		await helper({
-			name: 'test-linter',
-			version: '0.1.0',
-			interface: interfaceType.value,
-			selector: 'source.test',
-			errorStream: 'STREAM_BOTH',
-			multiline: false,
-			author: 'testuser',
-			spdxLicense: 'MIT',
-			tests: [],
-			initGit: false,
-		} as PromptAnswers);
+		test('uses correct interface class', () => {
+			assert.fileContent('linter.py', `from SublimeLinter.lint import ${interfaceType.value}`);
+		});
+
+		test('defines class with correct interface', () => {
+			assert.fileContent('linter.py', `class TestLinter(${interfaceType.value}):`);
+		});
+
+		test('creates README.md', () => {
+			assert.file('README.md');
+		});
+
+		test('creates linter.py', () => {
+			assert.file('linter.py');
+		});
+
+		test('creates .editorconfig', () => {
+			assert.file('.editorconfig');
+		});
 	});
-
-	InterfaceTest('uses correct interface class', () => {
-		assert.fileContent('linter.py', `from SublimeLinter.lint import ${interfaceType.value}`);
-	});
-
-	InterfaceTest('defines class with correct interface', () => {
-		assert.fileContent('linter.py', `class TestLinter(${interfaceType.value}):`);
-	});
-
-	InterfaceTest('creates README.md', () => {
-		assert.file('README.md');
-	});
-
-	InterfaceTest('creates linter.py', () => {
-		assert.file('linter.py');
-	});
-
-	InterfaceTest('creates .editorconfig', () => {
-		assert.file('.editorconfig');
-	});
-
-	InterfaceTest.run();
 });
