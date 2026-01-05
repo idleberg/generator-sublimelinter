@@ -12,7 +12,7 @@
 **Features**
 
 - adds any [SPDX](https://spdx.org/licenses/) license
-- adds [CircleCI](https://circleci.com/) configuration
+- adds CI/CD configuration
 - adds [EditorConfig](https://editorconfig.org/) configuration
 
 ## Prerequisites
