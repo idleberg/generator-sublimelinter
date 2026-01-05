@@ -269,7 +269,7 @@ export default class extends Generator {
 
 			// Open in Editor
 			if (props.openInEditor === true && typeof process.env.EDITOR === 'string') {
-				this.spawn(String(process.env.EDITOR), ['.']);
+				this.spawn(process.env.EDITOR, ['.']);
 			}
 		});
 	}
