@@ -5,9 +5,10 @@ on:
     paths:
       - ".github/**"
       - "generators/**"
-      - "test/**"
+      - "tests/**"
       - "package.json"
       - "pnpm-lock.yaml"
+      - "vitest.config.ts"
   pull_request:
   workflow_dispatch:
 
