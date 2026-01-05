@@ -1,7 +1,7 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import slugify from '@sindresorhus/slugify';
-import { pascalCase } from 'pascal-case';
+import { pascalCase } from 'change-case';
 import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';

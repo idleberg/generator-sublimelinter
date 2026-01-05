@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@sindresorhus/slugify": "^3.0.0",
-		"pascal-case": "^4.0.0",
+		"change-case": "^5.4.4",
 		"semver": "^7.7.3",
 		"spdx-license-list": "^6.10.0",
 		"terminal-link": "^5.0.0",
