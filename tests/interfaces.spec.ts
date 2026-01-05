@@ -1,7 +1,7 @@
 import { beforeAll, describe, test } from 'vitest';
 import assert from 'yeoman-assert';
 import type { PromptAnswers } from 'yeoman-generator';
-import { helper } from './__helper.ts';
+import { helper } from './helper.ts';
 
 const interfaces = [
 	{ name: 'Linter', value: 'Linter' },
