@@ -8,7 +8,6 @@
 
 ## Description
 
-
 **Features**
 
 - adds any [SPDX](https://spdx.org/licenses/) license
