@@ -24,7 +24,8 @@
 		"lint": "concurrently --prefix '{name}' -c 'green,blue' 'npm:lint:*'",
 		"prepare": "lefthook install",
 		"publish": "np --no-yarn",
-		"test": "uvu --ignore test/__helper.js"
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"repository": {
 		"type": "git",
@@ -39,24 +40,25 @@
 		"semver": "^7.6.0",
 		"spdx-license-list": "^6.9.0",
 		"terminal-link": "^3.0.0",
-		"yeoman-generator": "^7.1.1"
+		"yeoman-generator": "^7.5.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.3.0",
 		"@commitlint/config-conventional": "^20.3.0",
 		"@idleberg/configs": "^0.4.1",
 		"@lukeed/uuid": "^2.0.1",
+		"@types/yeoman-assert": "^3.1.4",
+		"@yeoman/adapter": "^3.0.0",
+		"@yeoman/types": "^1.8.0",
 		"concurrently": "^9.2.1",
 		"ejs-lint": "^2.0.1",
 		"eslint-plugin-json": "^3.1.0",
-		"mem-fs": "^4.1.0",
+		"mem-fs": "^4.1.2",
 		"np": "^10.0.2",
-		"rimraf": "^5.0.5",
-		"tsm": "^2.3.0",
-		"uvu": "^0.5.6",
+		"vitest": "^4.0.16",
 		"yeoman-assert": "^3.1.1",
-		"yeoman-environment": "^4.4.0",
-		"yeoman-test": "^8.2.0"
+		"yeoman-environment": "^5.1.1",
+		"yeoman-test": "^11.2.0"
 	},
 	"packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
 }

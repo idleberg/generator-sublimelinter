@@ -144,7 +144,6 @@ export default class extends Generator {
 			{
 				name: 'author',
 				message: `What's your GitHub username?`,
-				default: async () => await this.github.username(),
 				store: true,
 				validate: (x) => (x.length > 0 ? true : 'You have to provide a username'),
 			},
@@ -247,7 +246,7 @@ export default class extends Generator {
 					recursive: true,
 				});
 
-				this.fs.copyTpl(this.templatePath('config-github.ejs'), this.destinationPath('..github/workflows/config.yml'), {
+				this.fs.copyTpl(this.templatePath('config-github.ejs'), this.destinationPath('.github/workflows/config.yml'), {
 					flakeArgs: props.flakeArgs.trim(),
 					pepArgs: props.pepArgs.trim(),
 				});
