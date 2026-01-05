@@ -37,8 +37,8 @@
 	"dependencies": {
 		"@sindresorhus/slugify": "^2.2.1",
 		"pascal-case": "^4.0.0",
-		"semver": "^7.6.0",
-		"spdx-license-list": "^6.9.0",
+		"semver": "^7.7.3",
+		"spdx-license-list": "^6.10.0",
 		"terminal-link": "^3.0.0",
 		"yeoman-generator": "^7.5.1"
 	},
@@ -52,9 +52,8 @@
 		"@yeoman/types": "^1.8.0",
 		"concurrently": "^9.2.1",
 		"ejs-lint": "^2.0.1",
-		"eslint-plugin-json": "^3.1.0",
 		"mem-fs": "^4.1.2",
-		"np": "^10.0.2",
+		"np": "^10.2.0",
 		"vitest": "^4.0.16",
 		"yeoman-assert": "^3.1.1",
 		"yeoman-environment": "^5.1.1",
