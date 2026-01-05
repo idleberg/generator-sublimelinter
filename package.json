@@ -11,7 +11,7 @@
 		"sublime text"
 	],
 	"type": "module",
-	"exports": "./generators/app",
+	"exports": "./generators/app/index.js",
 	"files": [
 		"generators",
 		"LICENSE",
