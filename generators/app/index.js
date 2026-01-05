@@ -9,8 +9,8 @@ import Generator from 'yeoman-generator';
 import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
-	constructor(args, opts) {
-		super(args, opts);
+	constructor(args, options) {
+		super(args, options);
 
 		this.option('loose-version', { description: `Doesn't enforce semantic versioning`, default: false });
 		this.option('debug', { description: 'Prints debug messages', default: false });
@@ -95,7 +95,7 @@ export default class extends Generator {
 				)}`,
 				default: (answers) => getDefaultSelector(answers.interface),
 				store: true,
-				validate: (x) => (x.length > 0 ? true : 'You have to provide a valid selector'),
+				validate: (answer) => (answer?.length > 0 ? true : 'You have to provide a valid selector'),
 			},
 			{
 				name: 'errorStream',
@@ -145,7 +145,7 @@ export default class extends Generator {
 				name: 'author',
 				message: `What's your GitHub username?`,
 				store: true,
-				validate: (x) => (x.length > 0 ? true : 'You have to provide a username'),
+				validate: (answer) => (answer?.length > 0 ? true : 'You have to provide a username'),
 			},
 			{
 				name: 'spdxLicense',
