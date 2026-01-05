@@ -34,7 +34,7 @@ export default class extends Generator {
 			{
 				name: 'version',
 				message: `What's the plugin's initial version?`,
-				default: '0.0.0',
+				default: '0.1.0',
 				store: true,
 				validate: (version) =>
 					this.looseVersion === true || semver.valid(version) !== null
