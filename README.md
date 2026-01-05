@@ -8,16 +8,15 @@
 
 ## Description
 
-
 **Features**
 
 - adds any [SPDX](https://spdx.org/licenses/) license
-- adds [CircleCI](https://circleci.com/) configuration
+- adds CI/CD configuration
 - adds [EditorConfig](https://editorconfig.org/) configuration
 
 ## Prerequisites
 
-You need [Node.js](https://nodejs.org/en/) installed and available in your `PATH` [environment variable](http://superuser.com/a/284351/195953). Use your preferred Node package manager to install the Yeoman CLI tool.
+You need [Node.js](https://nodejs.org) installed and available in your `PATH` [environment variable](http://superuser.com/a/284351/195953). Use your preferred Node package manager to install the Yeoman CLI tool.
 
 ```sh
 $ npm install -g yo
@@ -43,4 +42,4 @@ $ yo sublime
 
 ## License
 
-This work is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This work is licensed under the [MIT License](LICENSE).
