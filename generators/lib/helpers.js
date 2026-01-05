@@ -1,4 +1,5 @@
 // @ts-check
+import { access, constants } from 'fs/promises';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
 
@@ -46,6 +47,21 @@ export function validateName(name) {
 	if (name.startsWith('SublimeLinter-contrib-')) false;
 	if (name.startsWith('sublime-linter-')) false;
 	if (name.startsWith('sublime-linter-contrib-')) false;
+
+	return true;
+}
+
+/**
+ *
+ * @param {string} filePath
+ * @returns {Promise<boolean>}
+ */
+export async function fileExists(filePath) {
+	try {
+		await access(filePath, constants.F_OK);
+	} catch {
+		return false;
+	}
 
 	return true;
 }

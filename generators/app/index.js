@@ -6,7 +6,7 @@ import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
 import Generator from 'yeoman-generator';
-import { getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
+import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
 	constructor(args, opts) {
@@ -207,7 +207,7 @@ export default class extends Generator {
 				name: 'initGit',
 				message: 'Initialize Git repository?',
 				type: 'confirm',
-				default: !this.fs.exists(resolve(process.cwd(), '.git', 'config')),
+				default: !(await fileExists(resolve(process.cwd(), '.git', 'config'))),
 			},
 		]).then(async (props) => {
 			if (this.options.debug) {
