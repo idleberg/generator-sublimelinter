@@ -10,6 +10,7 @@
 
 **Features**
 
+- scaffolds Python code for your linter
 - adds any [SPDX](https://spdx.org/licenses/) license
 - adds CI/CD configuration
 - adds [EditorConfig](https://editorconfig.org/) configuration
