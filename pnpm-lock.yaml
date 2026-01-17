@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@idleberg/yeoman-generator':
+        specifier: ^0.1.0
+        version: 0.1.0(@clack/prompts@1.0.0-alpha.9)(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(eta@4.5.0)(mem-fs@4.1.2)
       '@sindresorhus/slugify':
         specifier: ^3.0.0
         version: 3.0.0
@@ -23,6 +26,9 @@ importers:
       terminal-link:
         specifier: ^5.0.0
         version: 5.0.0
+      yeoman-adapter-clack:
+        specifier: ^0.1.2
+        version: 0.1.2(@clack/prompts@1.0.0-alpha.9)(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
       yeoman-generator:
         specifier: ^7.5.1
         version: 7.5.1(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
@@ -622,6 +628,13 @@ packages:
 
   '@idleberg/configs@0.4.1':
     resolution: {integrity: sha512-oLVZPHOrhgxdeXsxukD1vB30eDkF0UidfhthsBBKksF7GM0lhQNTWNThsJojrazI/0OZV9giQCeVxsm3/cUK0Q==}
+
+  '@idleberg/yeoman-generator@0.1.0':
+    resolution: {integrity: sha512-FUVjhDSBPr3XKBbk+8QmVmgFjSK64+GMRRocufeYVDMzCE1/O5mpQmsaR9B/KKsrEz6Dvrk7Rn9D+MPHJDo7Sg==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@clack/prompts': ^0.11.0
+      eta: ^4.5.0
 
   '@inquirer/ansi@1.0.2':
     resolution: {integrity: sha512-S8qNSZiYzFd0wAcyG5AXCvUHC5Sr7xpZ9wZ2py9XR88jUz8wooStVx5M6dRzczbBWjic9NP7+rY0Xi7qqK/aMQ==}
@@ -1915,6 +1928,10 @@ packages:
   estree-walker@3.0.3:
     resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
 
+  eta@4.5.0:
+    resolution: {integrity: sha512-qifAYjuW5AM1eEEIsFnOwB+TGqu6ynU3OKj9WbUTOtUBHFPZqL03XUW34kbp3zm19Ald+U8dEyRXaVsUck+Y1g==}
+    engines: {node: '>=20'}
+
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
@@ -2096,6 +2113,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -2286,6 +2304,10 @@ packages:
 
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
+
+  is-binary-path@3.0.0:
+    resolution: {integrity: sha512-eSkpSYbqKip82Uw4z0iBK/5KmVzL2pf36kNKRtu6+mKvrow9sqF4w5hocQ9yV5v+9+wzHt620x3B7Wws/8lsGg==}
+    engines: {node: '>=18.20'}
 
   is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
@@ -2494,6 +2516,10 @@ packages:
   kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
+
+  kleur@4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
+    engines: {node: '>=6'}
 
   ky@1.14.2:
     resolution: {integrity: sha512-q3RBbsO5A5zrPhB6CaCS8ZUv+NWCXv6JJT4Em0i264G9W0fdPB8YRfnnEi7Dm7X7omAkBIPojzYJ2D1oHTHqug==}
@@ -3886,6 +3912,12 @@ packages:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
 
+  yeoman-adapter-clack@0.1.2:
+    resolution: {integrity: sha512-nP9xYCBLmEUmwYIo9+b7ZBUfOxW+AAKseqx/HnXPvID+4u1qD6ik8W4K4ucZHLO4aBvJueYIEFO0Q3gNxbGlHg==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@clack/prompts': ^0.11.0
+
   yeoman-assert@3.1.1:
     resolution: {integrity: sha512-bCuLb/j/WzpvrJZCTdJJLFzm7KK8IYQJ3+dF9dYtNs2CUYyezFJDuULiZ2neM4eqjf45GN1KH/MzCTT3i90wUQ==}
     engines: {node: '>=4'}
@@ -4516,6 +4548,24 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/preset-env'
       - picomatch
+      - supports-color
+
+  '@idleberg/yeoman-generator@0.1.0(@clack/prompts@1.0.0-alpha.9)(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(eta@4.5.0)(mem-fs@4.1.2)':
+    dependencies:
+      '@clack/prompts': 1.0.0-alpha.9
+      '@yeoman/adapter': 4.0.1(@types/node@24.10.4)
+      eta: 4.5.0
+      glob: 13.0.0
+      is-binary-path: 3.0.0
+      kleur: 4.1.5
+      mem-fs-editor: 11.1.4(mem-fs@4.1.2)
+      yeoman-adapter-clack: 0.1.2(@clack/prompts@1.0.0-alpha.9)(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
+      yeoman-environment: 5.1.2(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
+      yeoman-generator: 7.5.1(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@yeoman/types'
+      - mem-fs
       - supports-color
 
   '@inquirer/ansi@1.0.2': {}
@@ -5809,6 +5859,8 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
 
+  eta@4.5.0: {}
+
   eventemitter3@5.0.1: {}
 
   execa@8.0.1:
@@ -6221,6 +6273,10 @@ snapshots:
 
   is-arrayish@0.2.1: {}
 
+  is-binary-path@3.0.0:
+    dependencies:
+      binary-extensions: 3.1.0
+
   is-docker@3.0.0: {}
 
   is-extglob@2.1.1: {}
@@ -6374,6 +6430,8 @@ snapshots:
   just-diff@6.0.2: {}
 
   kind-of@6.0.3: {}
+
+  kleur@4.1.5: {}
 
   ky@1.14.2: {}
 
@@ -7778,6 +7836,17 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  yeoman-adapter-clack@0.1.2(@clack/prompts@1.0.0-alpha.9)(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2):
+    dependencies:
+      '@clack/prompts': 1.0.0-alpha.9
+      '@yeoman/adapter': 4.0.1(@types/node@24.10.4)
+      yeoman-generator: 7.5.1(@types/node@24.10.4)(@yeoman/types@1.9.1(@types/node@24.10.4)(@yeoman/adapter@4.0.1(@types/node@24.10.4))(mem-fs-editor@11.1.4(mem-fs@4.1.2))(mem-fs@4.1.2))(mem-fs@4.1.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@yeoman/types'
+      - mem-fs
+      - supports-color
 
   yeoman-assert@3.1.1: {}
 
