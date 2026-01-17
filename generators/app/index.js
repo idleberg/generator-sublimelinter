@@ -1,11 +1,11 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { GeneratorCompat as Generator } from '@idleberg/yeoman-generator';
 import slugify from '@sindresorhus/slugify';
 import { pascalCase } from 'change-case';
 import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
-import Generator from 'yeoman-generator';
 import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
 
 export default class extends Generator {
@@ -22,6 +22,8 @@ export default class extends Generator {
 	}
 
 	async inquirer() {
+		this.clack.intro(this.appname);
+
 		return this.prompt([
 			{
 				name: 'name',
@@ -225,7 +227,7 @@ export default class extends Generator {
 			}
 
 			if (typeof props.spdxLicense !== 'undefined') {
-				this.fs.copyTpl(this.templatePath('LICENSE.ejs'), this.destinationPath('LICENSE'), {
+				this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath('LICENSE'), {
 					licenseText: props.licenseText,
 				});
 			}
@@ -235,7 +237,7 @@ export default class extends Generator {
 					recursive: true,
 				});
 
-				this.fs.copyTpl(this.templatePath('config-circleci.ejs'), this.destinationPath('.circleci/config.yml'), {
+				this.fs.copyTpl(this.templatePath('config-circleci.eta'), this.destinationPath('.circleci/config.yml'), {
 					flakeArgs: props.flakeArgs.trim(),
 					pepArgs: props.pepArgs.trim(),
 				});
@@ -246,7 +248,7 @@ export default class extends Generator {
 					recursive: true,
 				});
 
-				this.fs.copyTpl(this.templatePath('config-github.ejs'), this.destinationPath('.github/workflows/config.yml'), {
+				this.fs.copyTpl(this.templatePath('config-github.eta'), this.destinationPath('.github/workflows/config.yml'), {
 					flakeArgs: props.flakeArgs.trim(),
 					pepArgs: props.pepArgs.trim(),
 				});
@@ -254,11 +256,11 @@ export default class extends Generator {
 
 			this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
 
-			this.fs.copyTpl(this.templatePath('linter.py.ejs'), this.destinationPath('linter.py'), {
+			this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath('linter.py'), {
 				props: props,
 			});
 
-			this.fs.copyTpl(this.templatePath('README.md.ejs'), this.destinationPath('README.md'), {
+			this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath('README.md'), {
 				props: props,
 			});
 
