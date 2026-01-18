@@ -11,5 +11,6 @@ yarn.lock
 .yo-rc.json
 
 # Project specific
+.debug
 linter.py
 todo.md
