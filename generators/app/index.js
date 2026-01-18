@@ -17,14 +17,12 @@ export default class extends Generator {
 
 		this.looseVersion = this.options.looseVersion;
 		this.debug = this.options.debug;
-
-		console.log(/* let it breathe */);
 	}
 
-	async inquirer() {
+	async prompting() {
 		this.clack.intro(this.appname);
 
-		return this.prompt([
+		const answers = await this.prompt([
 			{
 				name: 'name',
 				message: `What's name of the linter executable?`,
@@ -211,68 +209,67 @@ export default class extends Generator {
 				type: 'confirm',
 				default: !(await fileExists(resolve(process.cwd(), '.git', 'config'))),
 			},
-		]).then(async (props) => {
-			if (this.options.debug) {
-				console.log(props);
-			}
+		]);
 
-			props.slug = slugify(props.name);
-			props.repositoryName = `SublimeLinter-contrib-${props.slug}`;
-			props.className = pascalCase(props.name);
-			props.multiline = props.multiline === true ? 'True' : 'False';
+		this.answers = answers;
+	}
 
-			if (typeof props.spdxLicense !== 'undefined') {
-				props.licenseName = spdxLicenseList[props.spdxLicense].name;
-				props.licenseText = spdxLicenseList[props.spdxLicense].licenseText.replace(/\n{3,}/g, '\n\n');
-			}
+	async writing() {
+		if (this.options.debug) {
+			console.log(this.answers);
+		}
 
-			if (typeof props.spdxLicense !== 'undefined') {
-				this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath('LICENSE'), {
-					licenseText: props.licenseText,
-				});
-			}
+		this.answers.slug = slugify(this.answers.name);
+		this.answers.repositoryName = `SublimeLinter-contrib-${this.answers.slug}`;
+		this.answers.className = pascalCase(this.answers.name);
+		this.answers.multiline = this.answers.multiline === true ? 'True' : 'False';
 
-			if (props.tests.includes('circleCI')) {
-				await mkdir('.circleci', {
-					recursive: true,
-				});
+		if (typeof this.answers.spdxLicense !== 'undefined') {
+			this.answers.licenseName = spdxLicenseList[this.answers.spdxLicense].name;
+			this.answers.licenseText = spdxLicenseList[this.answers.spdxLicense].licenseText.replace(/\n{3,}/g, '\n\n');
+		}
 
-				this.fs.copyTpl(this.templatePath('config-circleci.eta'), this.destinationPath('.circleci/config.yml'), {
-					flakeArgs: props.flakeArgs.trim(),
-					pepArgs: props.pepArgs.trim(),
-				});
-			}
+		if (typeof this.answers.spdxLicense !== 'undefined') {
+			this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath('LICENSE'), {
+				licenseText: this.answers.licenseText,
+			});
+		}
 
-			if (props.tests.includes('githubWorkflow')) {
-				await mkdir('.github/workflows', {
-					recursive: true,
-				});
-
-				this.fs.copyTpl(this.templatePath('config-github.eta'), this.destinationPath('.github/workflows/config.yml'), {
-					flakeArgs: props.flakeArgs.trim(),
-					pepArgs: props.pepArgs.trim(),
-				});
-			}
-
-			this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
-
-			this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath('linter.py'), {
-				...props,
+		if (this.answers.tests.includes('circleCI')) {
+			await mkdir('.circleci', {
+				recursive: true,
 			});
 
-			this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath('README.md'), {
-				...props,
+			this.fs.copyTpl(this.templatePath('config-circleci.eta'), this.destinationPath('.circleci/config.yml'), {
+				flakeArgs: this.answers.flakeArgs.trim(),
+				pepArgs: this.answers.pepArgs.trim(),
+			});
+		}
+
+		if (this.answers.tests.includes('githubWorkflow')) {
+			await mkdir('.github/workflows', {
+				recursive: true,
 			});
 
-			// Initialize git repository
-			if (props.initGit) {
-				this.spawnSync('git', ['init']);
-			}
+			this.fs.copyTpl(this.templatePath('config-github.eta'), this.destinationPath('.github/workflows/config.yml'), {
+				flakeArgs: this.answers.flakeArgs.trim(),
+				pepArgs: this.answers.pepArgs.trim(),
+			});
+		}
 
-			// Open in Editor
-			if (props.openInEditor === true && typeof process.env.EDITOR === 'string') {
-				this.spawn(process.env.EDITOR, ['.']);
-			}
+		this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
+
+		this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath('linter.py'), {
+			...this.answers,
 		});
+
+		this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath('README.md'), {
+			...this.answers,
+		});
+
+		// Initialize git repository
+		if (this.answers.initGit) {
+			this.spawnSync('git', ['init']);
+		}
 	}
 }
