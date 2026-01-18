@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { GeneratorCompat as Generator } from '@idleberg/yeoman-generator';
 import slugify from '@sindresorhus/slugify';
 import { pascalCase } from 'change-case';
+import { inverse } from 'kleur/colors';
 import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
@@ -18,10 +19,12 @@ export default class extends Generator {
 		this.looseVersion = this.options.looseVersion;
 		this.debug = this.options.debug;
 		this.outdir = this.options.debug ? '.debug' : '';
+
+		console.log(/* let it breathe */);
 	}
 
 	async prompting() {
-		this.clack.intro(this.appname);
+		this.clack.intro(inverse(` ${slugify(this.appname)} `));
 
 		const answers = await this.prompt([
 			{
