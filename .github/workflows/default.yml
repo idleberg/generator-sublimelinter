@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/**"
       - "generators/**"
+      - "lib/**"
       - "tests/**"
       - "package.json"
       - "pnpm-lock.yaml"
