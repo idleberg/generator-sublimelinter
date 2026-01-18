@@ -49,8 +49,8 @@ jobs:
       - name: Run tests
         run: |
           . venv/bin/activate
-          flake8 ./linter.py <%- flakeArgs %>
-          pep257 ./linter.py <%- pepArgs %>
+          flake8 ./linter.py <%= it.flakeArgs %>
+          pep257 ./linter.py <%= it.pepArgs %>
 
       - name: Archive test reports
         uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba #v4.3.2

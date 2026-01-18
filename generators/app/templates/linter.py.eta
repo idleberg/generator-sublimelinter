@@ -1,0 +1,27 @@
+#
+# linter.py
+# Copyright (c) <%= new Date().getFullYear() %> <%= it.author %>
+# <%= it.licenseName %>
+#
+# https://github.com/<%= it.author %>/<%= it.repositoryName %>
+#
+
+"""This module exports the <%= it.className %> plugin class."""
+
+from SublimeLinter.lint import <%= it.interface %>, util
+
+
+class <%= it.className %>(<%= it.interface %>):
+
+    """Provides an interface to the <%= it.className %> executable."""
+
+    cmd = ('<%= it.slug %>', '${file}')
+    defaults = {
+        'selector': '<%= it.selector %>'
+    }
+    regex = (
+        r'^(?P<file>.+):(?P<line>\d+):col (?P<col>\d+): (?P<message>.+)$'
+    )
+    multiline = <%= it.multiline %>
+    error_stream = util.<%= it.errorStream %>
+    line_col_base = (1, 1)

@@ -3,6 +3,7 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = lf
 indent_size = 2
 indent_style = tab
 insert_final_newline = true
@@ -19,5 +20,11 @@ block_comment_end = */
 [*.{markdown,md}]
 trim_trailing_whitespace = false
 
-[*.ejs]
+[*.eta]
 insert_final_newline = false
+
+[*.{py,rst,txt}]
+end_of_line = lf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true

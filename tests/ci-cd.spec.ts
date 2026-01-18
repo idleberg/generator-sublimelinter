@@ -15,7 +15,7 @@ describe('with CircleCI', () => {
 			author: 'testuser',
 			spdxLicense: 'MIT',
 			tests: ['circleCI'],
-			flakeArgs: '--ignore=D211',
+			flakeArgs: '--extend-ignore=D211',
 			pepArgs: '--ignore=D211',
 			initGit: false,
 		} as PromptAnswers);
@@ -50,7 +50,7 @@ describe('with GitHub Workflow', () => {
 			author: 'testuser',
 			spdxLicense: 'MIT',
 			tests: ['githubWorkflow'],
-			flakeArgs: '--ignore=D211',
+			flakeArgs: '--extend-ignore=D211',
 			pepArgs: '--ignore=D211',
 			initGit: false,
 		} as PromptAnswers);
@@ -85,7 +85,7 @@ describe('with both CircleCI and GitHub Workflow', () => {
 			author: 'testuser',
 			spdxLicense: 'MIT',
 			tests: ['circleCI', 'githubWorkflow'],
-			flakeArgs: '--ignore=D211',
+			flakeArgs: '--extend-ignore=D211',
 			pepArgs: '--ignore=D211',
 			initGit: false,
 		} as PromptAnswers);

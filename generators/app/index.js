@@ -1,12 +1,13 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { GeneratorCompat as Generator } from '@idleberg/yeoman-generator';
 import slugify from '@sindresorhus/slugify';
 import { pascalCase } from 'change-case';
+import { inverse } from 'kleur/colors';
 import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
-import Generator from 'yeoman-generator';
-import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../lib/helpers.js';
+import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../../lib/helpers.js';
 
 export default class extends Generator {
 	constructor(args, options) {
@@ -17,12 +18,15 @@ export default class extends Generator {
 
 		this.looseVersion = this.options.looseVersion;
 		this.debug = this.options.debug;
+		this.outdir = this.options.debug ? '.debug' : '';
 
 		console.log(/* let it breathe */);
 	}
 
-	async inquirer() {
-		return this.prompt([
+	async prompting() {
+		this.clack.intro(inverse(` ${slugify(this.appname)} `));
+
+		const answers = await this.prompt([
 			{
 				name: 'name',
 				message: `What's name of the linter executable?`,
@@ -47,7 +51,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'interface',
-				message: 'Specify the linter interface',
+				message: 'Specify a linter interface:',
 				type: 'list',
 				default: '(default)',
 				store: true,
@@ -84,7 +88,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'selector',
-				message: `Specify the ${terminalLink(
+				message: `Specify a ${terminalLink(
 					'selector',
 					'http://www.sublimelinter.com/en/stable/linter_settings.html#selector',
 					{
@@ -92,14 +96,14 @@ export default class extends Generator {
 							return 'selector';
 						},
 					},
-				)}`,
+				)} for files that should be linted:`,
 				default: (answers) => getDefaultSelector(answers.interface),
 				store: true,
 				validate: (answer) => (answer?.length > 0 ? true : 'You have to provide a valid selector'),
 			},
 			{
 				name: 'errorStream',
-				message: `Specify the default ${terminalLink(
+				message: `Specify the output captured for the ${terminalLink(
 					'error stream',
 					'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream',
 					{
@@ -107,7 +111,7 @@ export default class extends Generator {
 							return 'error stream';
 						},
 					},
-				)}`,
+				)}:`,
 				type: 'list',
 				default: 'STREAM_BOTH',
 				choices: [
@@ -128,7 +132,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'multiline',
-				message: `RegEx pattern is ${terminalLink(
+				message: `Does the RegEx pattern capture ${terminalLink(
 					'multiline',
 					'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline',
 					{
@@ -136,7 +140,7 @@ export default class extends Generator {
 							return 'multiline';
 						},
 					},
-				)}`,
+				)}?`,
 				type: 'confirm',
 				default: false,
 				store: true,
@@ -149,7 +153,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'spdxLicense',
-				message: 'Choose a license',
+				message: 'Choose a license for your linter:',
 				type: 'list',
 				default: 'MIT',
 				choices: licenseChoices,
@@ -158,7 +162,7 @@ export default class extends Generator {
 			{
 				type: 'checkbox',
 				name: 'tests',
-				message: 'Add tests',
+				message: 'Add CI/CD pipeline configurations?',
 				store: true,
 				choices: [
 					{
@@ -183,94 +187,101 @@ export default class extends Generator {
 			},
 			{
 				name: 'flakeArgs',
-				message: `Specify ${terminalLink('flake8', 'http://flake8.pycqa.org/', {
+				message: `Specify arguments for ${terminalLink('flake8', 'http://flake8.pycqa.org/', {
 					fallback() {
 						return 'flake8';
 					},
-				})} arguments`,
-				default: '-ignore=D211',
+				})}:`,
+				default: '--extend-ignore=D211',
 				store: true,
 				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'pepArgs',
-				message: `Specify ${terminalLink('pep257', 'https://pep257.readthedocs.io/', {
+				message: `Specify arguments for ${terminalLink('pep257', 'https://pep257.readthedocs.io/', {
 					fallback() {
 						return 'pep257';
 					},
-				})} arguments`,
+				})}:`,
 				default: '--ignore=D211',
 				store: true,
 				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'initGit',
-				message: 'Initialize Git repository?',
+				message: 'Initialize a Git repository?',
 				type: 'confirm',
 				default: !(await fileExists(resolve(process.cwd(), '.git', 'config'))),
 			},
-		]).then(async (props) => {
-			if (this.options.debug) {
-				console.log(props);
-			}
+		]);
 
-			props.slug = slugify(props.name);
-			props.repositoryName = `SublimeLinter-contrib-${props.slug}`;
-			props.className = pascalCase(props.name);
-			props.multiline = props.multiline === true ? 'True' : 'False';
+		this.answers = answers;
+	}
 
-			if (typeof props.spdxLicense !== 'undefined') {
-				props.licenseName = spdxLicenseList[props.spdxLicense].name;
-				props.licenseText = spdxLicenseList[props.spdxLicense].licenseText.replace(/\n{3,}/g, '\n\n');
-			}
+	async writing() {
+		if (this.options.debug) {
+			console.log(this.answers);
+		}
 
-			if (typeof props.spdxLicense !== 'undefined') {
-				this.fs.copyTpl(this.templatePath('LICENSE.ejs'), this.destinationPath('LICENSE'), {
-					licenseText: props.licenseText,
-				});
-			}
+		this.answers.slug = slugify(this.answers.name);
+		this.answers.repositoryName = `SublimeLinter-contrib-${this.answers.slug}`;
+		this.answers.className = pascalCase(this.answers.name);
+		this.answers.multiline = this.answers.multiline === true ? 'True' : 'False';
 
-			if (props.tests.includes('circleCI')) {
-				await mkdir('.circleci', {
-					recursive: true,
-				});
+		if (typeof this.answers.spdxLicense !== 'undefined') {
+			this.answers.licenseName = spdxLicenseList[this.answers.spdxLicense].name;
+			this.answers.licenseText = spdxLicenseList[this.answers.spdxLicense].licenseText.replace(/\n{3,}/g, '\n\n');
+		}
 
-				this.fs.copyTpl(this.templatePath('config-circleci.ejs'), this.destinationPath('.circleci/config.yml'), {
-					flakeArgs: props.flakeArgs.trim(),
-					pepArgs: props.pepArgs.trim(),
-				});
-			}
+		if (typeof this.answers.spdxLicense !== 'undefined') {
+			this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath(this.outdir, 'LICENSE'), {
+				licenseText: this.answers.licenseText,
+			});
+		}
 
-			if (props.tests.includes('githubWorkflow')) {
-				await mkdir('.github/workflows', {
-					recursive: true,
-				});
-
-				this.fs.copyTpl(this.templatePath('config-github.ejs'), this.destinationPath('.github/workflows/config.yml'), {
-					flakeArgs: props.flakeArgs.trim(),
-					pepArgs: props.pepArgs.trim(),
-				});
-			}
-
-			this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
-
-			this.fs.copyTpl(this.templatePath('linter.py.ejs'), this.destinationPath('linter.py'), {
-				props: props,
+		if (this.answers.tests.includes('circleCI')) {
+			await mkdir('.circleci', {
+				recursive: true,
 			});
 
-			this.fs.copyTpl(this.templatePath('README.md.ejs'), this.destinationPath('README.md'), {
-				props: props,
+			this.fs.copyTpl(
+				this.templatePath('config-circleci.eta'),
+				this.destinationPath(this.outdir, '.circleci/config.yml'),
+				{
+					flakeArgs: this.answers.flakeArgs.trim(),
+					pepArgs: this.answers.pepArgs.trim(),
+				},
+			);
+		}
+
+		if (this.answers.tests.includes('githubWorkflow')) {
+			await mkdir('.github/workflows', {
+				recursive: true,
 			});
 
-			// Initialize git repository
-			if (props.initGit) {
-				this.spawnSync('git', ['init']);
-			}
+			this.fs.copyTpl(
+				this.templatePath('config-github.eta'),
+				this.destinationPath(this.outdir, '.github/workflows/config.yml'),
+				{
+					flakeArgs: this.answers.flakeArgs.trim(),
+					pepArgs: this.answers.pepArgs.trim(),
+				},
+			);
+		}
 
-			// Open in Editor
-			if (props.openInEditor === true && typeof process.env.EDITOR === 'string') {
-				this.spawn(process.env.EDITOR, ['.']);
-			}
+		this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath(this.outdir, '.editorconfig'));
+
+		this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath(this.outdir, 'linter.py'), {
+			...this.answers,
 		});
+
+		this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath(this.outdir, 'README.md'), {
+			...this.answers,
+		});
+
+		// Initialize git repository
+		if (this.answers.initGit) {
+			this.spawnSync('git', ['init']);
+		}
 	}
 }

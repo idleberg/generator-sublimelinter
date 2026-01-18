@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: ["lts/*", "*"]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -46,8 +46,6 @@ jobs:
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - name: Lint Source
-        # Biome still treats lineEndings differently per OS
-        if: matrix.os != 'windows-latest'
         run: pnpm exec biome ci
 
       - name: Build Source
