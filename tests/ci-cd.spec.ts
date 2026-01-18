@@ -50,7 +50,7 @@ describe('with GitHub Workflow', () => {
 			author: 'testuser',
 			spdxLicense: 'MIT',
 			tests: ['githubWorkflow'],
-			flakeArgs: '--extend-extend-ignore=D211',
+			flakeArgs: '--extend-ignore=D211',
 			pepArgs: '--ignore=D211',
 			initGit: false,
 		} as PromptAnswers);
