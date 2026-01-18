@@ -1,14 +1,14 @@
-# <%= props.repositoryName %>
+# <%= it.repositoryName %>
 
-[![<%= props.licenseName %>](https://flat.badgen.net/badge/license/<%= props.spdxLicense %>/blue)](https://opensource.org/licenses/<%= props.spdxLicense %>)<% if (props.tests.includes('circleCI')) { %>
-[![CircleCI](https://flat.badgen.net/circleci/github/<%= props.author %>/<%= props.repositoryName %>)](https://circleci.com/gh/<%= props.author %>/<%= props.repositoryName %>)<% } %>
+[![<%= it.licenseName %>](https://flat.badgen.net/badge/license/<%= it.spdxLicense %>/blue)](https://opensource.org/licenses/<%= it.spdxLicense %>)<% if (it.tests.includes('circleCI')) { %>
+[![CircleCI](https://flat.badgen.net/circleci/github/<%= it.author %>/<%= it.repositoryName %>)](https://circleci.com/gh/<%= it.author %>/<%= it.repositoryName %>)<% } %>
 
-This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to `<%= props.slug %>`
+This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) provides an interface to `<%= it.slug %>`
 
 ## Prerequisites
 
 1. Make sure you have [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) installed
-2. Ensure that `<%= props.slug %>` is installed on your system and available in your [PATH environmental variable](http://sublimelinter.readthedocs.io/en/latest/troubleshooting.html#finding-a-linter-executable)
+2. Ensure that `<%= it.slug %>` is installed on your system and available in your [PATH environmental variable](http://sublimelinter.readthedocs.io/en/latest/troubleshooting.html#finding-a-linter-executable)
 
 ## Installation
 
@@ -16,14 +16,14 @@ This linter plugin for [SublimeLinter](https://github.com/SublimeLinter/SublimeL
 
 1. Make sure you have [Package Control](https://packagecontrol.io/) installed
 2. Choose *“Install Package”* from the Command Palette (<kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd>)
-3. Type *“<%= props.repositoryName %>”* and press <kbd>Enter</kbd>
+3. Type *“<%= it.repositoryName %>”* and press <kbd>Enter</kbd>
 
 With the [`auto_upgrade`](https://packagecontrol.io/docs/settings#setting-auto_upgrade) setting enabled, Package Control will keep all installed packages up-to-date!
 
 ### Using Git
 
 1. Change to your Sublime Text `Packages` directory
-2. Clone repository `git clone https://github.com/<%= props.author %>/<%= props.repositoryName %>.git <%= props.repositoryName %>`
+2. Clone repository `git clone https://github.com/<%= it.author %>/<%= it.repositoryName %>.git <%= it.repositoryName %>`
 
 ## Settings
 
@@ -31,4 +31,4 @@ Please refer to the official documentation in order to tweak the [SublimeLinter 
 
 ## License
 
-This work is licensed under the [<%= props.licenseName %>](LICENSE)
+This work is licensed under the [<%= it.licenseName %>](LICENSE)

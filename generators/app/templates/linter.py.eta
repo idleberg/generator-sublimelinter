@@ -1,27 +1,27 @@
 #
 # linter.py
-# Copyright (c) <%- new Date().getYear() %>> <%= props.author %>
-# <%= props.licenseName %>
+# Copyright (c) <%- new Date().getYear() %>> <%= it.author %>
+# <%= it.licenseName %>
 #
-# https://github.com/<%= props.author %>/<%= props.repositoryName %>
+# https://github.com/<%= it.author %>/<%= it.repositoryName %>
 #
 
-"""This module exports the <%= props.className %> plugin class."""
+"""This module exports the <%= it.className %> plugin class."""
 
-from SublimeLinter.lint import <%= props.interface %>, util
+from SublimeLinter.lint import <%= it.interface %>, util
 
 
-class <%= props.className %>(<%= props.interface %>):
+class <%= it.className %>(<%= it.interface %>):
 
-    """Provides an interface to the <%= props.className %> executable."""
+    """Provides an interface to the <%= it.className %> executable."""
 
-    cmd = ('<%= props.slug %>', '${file}')
+    cmd = ('<%= it.slug %>', '${file}')
     defaults = {
-        'selector': '<%= props.selector %>'
+        'selector': '<%= it.selector %>'
     }
     regex = (
         r'^(?P<file>.+):(?P<line>\d+):col (?P<col>\d+): (?P<message>.+)$'
     )
-    multiline = <%= props.multiline %>
-    error_stream = util.<%= props.errorStream %>
+    multiline = <%= it.multiline %>
+    error_stream = util.<%= it.errorStream %>
     line_col_base = (1, 1)
