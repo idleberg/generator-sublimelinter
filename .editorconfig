@@ -24,7 +24,7 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 
 [*.{py,rst,txt}]
+end_of_line = lf
+indent_size = 4
 indent_style = space
 trim_trailing_whitespace = true
-indent_size = 4
-end_of_line = lf
