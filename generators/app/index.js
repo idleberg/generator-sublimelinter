@@ -49,7 +49,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'interface',
-				message: 'Specify the linter interface',
+				message: 'Specify a linter interface:',
 				type: 'list',
 				default: '(default)',
 				store: true,
@@ -86,7 +86,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'selector',
-				message: `Specify the ${terminalLink(
+				message: `Specify a ${terminalLink(
 					'selector',
 					'http://www.sublimelinter.com/en/stable/linter_settings.html#selector',
 					{
@@ -94,14 +94,14 @@ export default class extends Generator {
 							return 'selector';
 						},
 					},
-				)}`,
+				)} for files that should be linted:`,
 				default: (answers) => getDefaultSelector(answers.interface),
 				store: true,
 				validate: (answer) => (answer?.length > 0 ? true : 'You have to provide a valid selector'),
 			},
 			{
 				name: 'errorStream',
-				message: `Specify the default ${terminalLink(
+				message: `Specify the output captured for the ${terminalLink(
 					'error stream',
 					'http://www.sublimelinter.com/en/stable/linter_attributes.html#error-stream',
 					{
@@ -109,7 +109,7 @@ export default class extends Generator {
 							return 'error stream';
 						},
 					},
-				)}`,
+				)}:`,
 				type: 'list',
 				default: 'STREAM_BOTH',
 				choices: [
@@ -130,7 +130,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'multiline',
-				message: `RegEx pattern is ${terminalLink(
+				message: `Does the RegEx pattern capture ${terminalLink(
 					'multiline',
 					'http://www.sublimelinter.com/en/stable/linter_attributes.html#multiline',
 					{
@@ -138,7 +138,7 @@ export default class extends Generator {
 							return 'multiline';
 						},
 					},
-				)}`,
+				)}?`,
 				type: 'confirm',
 				default: false,
 				store: true,
@@ -151,7 +151,7 @@ export default class extends Generator {
 			},
 			{
 				name: 'spdxLicense',
-				message: 'Choose a license',
+				message: 'Choose a license for your linter:',
 				type: 'list',
 				default: 'MIT',
 				choices: licenseChoices,
@@ -160,7 +160,7 @@ export default class extends Generator {
 			{
 				type: 'checkbox',
 				name: 'tests',
-				message: 'Add tests',
+				message: 'Add CI/CD pipeline configurations?',
 				store: true,
 				choices: [
 					{
@@ -185,29 +185,29 @@ export default class extends Generator {
 			},
 			{
 				name: 'flakeArgs',
-				message: `Specify ${terminalLink('flake8', 'http://flake8.pycqa.org/', {
+				message: `Specify arguments for ${terminalLink('flake8', 'http://flake8.pycqa.org/', {
 					fallback() {
 						return 'flake8';
 					},
-				})} arguments`,
+				})}:`,
 				default: '--extend-ignore=D211',
 				store: true,
 				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'pepArgs',
-				message: `Specify ${terminalLink('pep257', 'https://pep257.readthedocs.io/', {
+				message: `Specify arguments for ${terminalLink('pep257', 'https://pep257.readthedocs.io/', {
 					fallback() {
 						return 'pep257';
 					},
-				})} arguments`,
+				})}:`,
 				default: '--ignore=D211',
 				store: true,
 				when: (answers) => answers.tests.length > 0,
 			},
 			{
 				name: 'initGit',
-				message: 'Initialize Git repository?',
+				message: 'Initialize a Git repository?',
 				type: 'confirm',
 				default: !(await fileExists(resolve(process.cwd(), '.git', 'config'))),
 			},
