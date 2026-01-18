@@ -28,7 +28,7 @@ $ npm install -g yo
  Use your preferred package manager to install this generator
 
 ```sh
-$ npm i generator-sublime -g
+$ npm i generator-sublimelinter -g
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ $ npm i generator-sublime -g
 Run the generator and follow its instructions. Use `--help` for available flags.
 
 ```sh
-$ yo sublime
+$ yo sublimelinter
 ```
 
 *“That's all Folks!”*
