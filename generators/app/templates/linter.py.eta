@@ -1,6 +1,6 @@
 #
 # linter.py
-# Copyright (c) <%- new Date().getYear() %>> <%= it.author %>
+# Copyright (c) <%= new Date().getFullYear() %> <%= it.author %>
 # <%= it.licenseName %>
 #
 # https://github.com/<%= it.author %>/<%= it.repositoryName %>
