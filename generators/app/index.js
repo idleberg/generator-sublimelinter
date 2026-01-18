@@ -17,6 +17,7 @@ export default class extends Generator {
 
 		this.looseVersion = this.options.looseVersion;
 		this.debug = this.options.debug;
+		this.outdir = this.options.debug ? '.debug' : '';
 	}
 
 	async prompting() {
@@ -230,7 +231,7 @@ export default class extends Generator {
 		}
 
 		if (typeof this.answers.spdxLicense !== 'undefined') {
-			this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath('LICENSE'), {
+			this.fs.copyTpl(this.templatePath('LICENSE.eta'), this.destinationPath(this.outdir, 'LICENSE'), {
 				licenseText: this.answers.licenseText,
 			});
 		}
@@ -240,10 +241,14 @@ export default class extends Generator {
 				recursive: true,
 			});
 
-			this.fs.copyTpl(this.templatePath('config-circleci.eta'), this.destinationPath('.circleci/config.yml'), {
-				flakeArgs: this.answers.flakeArgs.trim(),
-				pepArgs: this.answers.pepArgs.trim(),
-			});
+			this.fs.copyTpl(
+				this.templatePath('config-circleci.eta'),
+				this.destinationPath(this.outdir, '.circleci/config.yml'),
+				{
+					flakeArgs: this.answers.flakeArgs.trim(),
+					pepArgs: this.answers.pepArgs.trim(),
+				},
+			);
 		}
 
 		if (this.answers.tests.includes('githubWorkflow')) {
@@ -251,19 +256,23 @@ export default class extends Generator {
 				recursive: true,
 			});
 
-			this.fs.copyTpl(this.templatePath('config-github.eta'), this.destinationPath('.github/workflows/config.yml'), {
-				flakeArgs: this.answers.flakeArgs.trim(),
-				pepArgs: this.answers.pepArgs.trim(),
-			});
+			this.fs.copyTpl(
+				this.templatePath('config-github.eta'),
+				this.destinationPath(this.outdir, '.github/workflows/config.yml'),
+				{
+					flakeArgs: this.answers.flakeArgs.trim(),
+					pepArgs: this.answers.pepArgs.trim(),
+				},
+			);
 		}
 
-		this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath('.editorconfig'));
+		this.fs.copy(this.templatePath('_editorconfig'), this.destinationPath(this.outdir, '.editorconfig'));
 
-		this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath('linter.py'), {
+		this.fs.copyTpl(this.templatePath('linter.py.eta'), this.destinationPath(this.outdir, 'linter.py'), {
 			...this.answers,
 		});
 
-		this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath('README.md'), {
+		this.fs.copyTpl(this.templatePath('README.md.eta'), this.destinationPath(this.outdir, 'README.md'), {
 			...this.answers,
 		});
 
