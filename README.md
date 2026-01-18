@@ -20,7 +20,7 @@
 You need [Node.js](https://nodejs.org) installed and available in your `PATH` [environment variable](http://superuser.com/a/284351/195953). Use your preferred Node package manager to install the Yeoman CLI tool.
 
 ```sh
-$ npm install -g yo
+$ npm install --global yo
 ```
 
 ## Installation
@@ -28,7 +28,7 @@ $ npm install -g yo
  Use your preferred package manager to install this generator
 
 ```sh
-$ npm i generator-sublimelinter -g
+$ npm install --global generator-sublimelinter
 ```
 
 ## Usage
