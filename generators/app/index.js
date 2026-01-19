@@ -19,11 +19,10 @@ export default class extends Generator {
 		this.looseVersion = this.options.looseVersion;
 		this.debug = this.options.debug;
 		this.outdir = this.options.debug ? '.debug' : '';
-
-		console.log(/* let it breathe */);
 	}
 
 	async prompting() {
+		console.log(/* let it breathe */);
 		this.clack.intro(inverse(` ${slugify(this.appname)} `));
 
 		const answers = await this.prompt([
