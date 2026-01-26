@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { cwd } from 'node:process';
-import type { PromptAnswers } from 'yeoman-generator';
+import type { PromptAnswers } from '@idleberg/yeoman-generator';
 import helpers from 'yeoman-test';
 
 export function helper(buildArgs: PromptAnswers) {

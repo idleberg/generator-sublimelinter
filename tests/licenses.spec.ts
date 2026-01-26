@@ -1,7 +1,7 @@
+import type { PromptAnswers } from '@idleberg/yeoman-generator';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import { beforeAll, describe, test } from 'vitest';
 import assert from 'yeoman-assert';
-import type { PromptAnswers } from 'yeoman-generator';
 import { helper } from './helper.ts';
 
 // Test a representative subset of licenses
