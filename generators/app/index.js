@@ -8,6 +8,7 @@ import semver from 'semver';
 import spdxLicenseList from 'spdx-license-list/full.js';
 import terminalLink from 'terminal-link';
 import { fileExists, getDefaultSelector, licenseChoices, validateName } from '../../lib/helpers.js';
+import $ from '../../package.json' with { type: 'json' };
 
 export default class extends Generator {
 	constructor(args, options) {
@@ -23,7 +24,7 @@ export default class extends Generator {
 
 	async prompting() {
 		console.log(/* let it breathe */);
-		this.clack.intro(inverse(` ${slugify(this.appname)} `));
+		this.clack.intro(inverse(` ${$.name} `));
 
 		const answers = await this.prompt([
 			{
