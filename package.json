@@ -23,7 +23,7 @@
 		"lint:code": "biome check",
 		"lint": "concurrently --prefix '{name}' -c 'green,blue' 'npm:lint:*'",
 		"prepare": "lefthook install",
-		"publish:npm": "np --no-yarn",
+		"publish:npm": "np",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
