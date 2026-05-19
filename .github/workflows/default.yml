@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  default:
+  run-tests:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
