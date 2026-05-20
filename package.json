@@ -1,6 +1,6 @@
 {
 	"name": "generator-sublimelinter",
-	"version": "0.4.4",
+	"version": "0.5.0",
 	"description": "Yeoman generator for SublimeLinter plugins",
 	"author": "Jan T. Sott",
 	"license": "MIT",
